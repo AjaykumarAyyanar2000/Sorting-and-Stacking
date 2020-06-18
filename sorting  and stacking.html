@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>STACKING</title>
+    <style></style>
+</head>
+<body>
+    
+    <canvas id="gameCanvas" width="1510" height="734"></canvas>
+    <script>
+        const FPS = 30; // frames per second
+        const ROID_JAG = 0.4; // jaggedness of the asteroids (0 = none, 1 = lots)
+        const ROID_NUM = 8; // starting number of asteroids
+        const ROID_SIZE = 200; // starting size of asteroids in pixels
+        const ROID_SPD = 50; // max starting speed of asteroids in pixels per second
+        const ROID_VERT = 10; // average number of vertices on each asteroid
+        const GAME_LIVES = 3 ; //starting no of lives     
+        const SHIP_SIZE = 30; // ship height in pixels
+        const SAVE_KEY_SCORE = "highscore";//save key for local storage of high score
+        /** @type {HTMLCanvasElement} */
+        const TEXT_SIZE = 40; //text font height in pixels
+        var canv = document.getElementById("gameCanvas");
+        var ctx = canv.getContext("2d");
+        //firstpage();
+        setup();
+        
+            
+      
+        function setup()
+        {
+            document.addEventListener("keydown", keyDown);
+            var count1 = 0;
+            var count2 = 0;
+            var count3 = 0;
+            var count4 = 0;
+       var indexdo = 0;
+        var indexdu = 1;
+        var indexdelegate = 2;
+            var indexdecide = 3;
+            var indexdefer = 4;
+            var indexdelete = 5;
+            var indexdoodle = 6;
+            var indexdribble = 7;
+        var indexroof1 = 0;
+        var indexcol1 = 1;
+        var indexbase1 = 2;
+        var count = 0;
+        var value = 0
+        var score =  0;
+        var scoreHigh = 0;
+            var index = 0;
+        const a = 5;
+        const b = 10 ;
+        const c = 15;
+        let doitwellclicked = true;
+        let duclicked = true;
+        let dgateclicked = true;
+            let decideclicked = true;
+            let deferclicked = true;
+            let deleteclicked = true;
+            let doodleclicked = true;
+            let dribbleclicked = true;
+        
+        alert("INSTRUCTIONS TO PLAY THE GAME                                                    1.TO SELECT THE BALLS,YOU HAVE TO SELECT THE CODE OR NUMBER AND YOU HAVE TO SELECT THE BALLS IN ORDER OF SMALLEST TO LARGEST NUMBER ( 1 - 8)");
+        
+        newGame();
+        setInterval ( update , 1000 / FPS );
+        var p = 0;
+          function destroyAsteroid( index ) {
+              /*
+          if(value == 5 || value == 50)
+           {
+               score += 10;
+           }
+              else{
+                  score -= 5;
+              }*/
+                 // destroy the asteroid
+            roids.splice( index , 1);
+                //check high score
+            if( score > scoreHigh )
+            {
+                scoreHigh = score ;
+                localStorage.setItem(SAVE_KEY_SCORE , scoreHigh );
+            }
+               if(roids.length == 0)
+            {
+                result();
+            }
+          }
+        function result()
+        {
+             if(roids.length <= 0)
+             {
+                  if(value == 390)
+                  {
+                      alert("CONGRATS YOU WIN ");
+             if( score > scoreHigh )
+            {
+                scoreHigh = score ;
+                localStorage.setItem(SAVE_KEY_SCORE , scoreHigh );
+            }
+                   //   score = 0;
+                  }
+                  else
+                  {
+                      alert("PLS TRY AGAIN");
+                     // score = 0;
+                      
+                  }
+            }
+        }
+          function createAsteroidBelt() {
+            roids = [];
+            var x, y;
+            for (var i = 0; i < ROID_NUM ; i++) {
+                // random asteroid location (not touching spaceship)
+                    x = Math.floor(Math.random() * canv.width) + 200;
+                    y = Math.floor(Math.random() * canv.height) + 200;
+                roids.push(newAsteroid(x, y, Math.ceil(ROID_SIZE / 2), i+1));
+               
+        }
+        }
+        function newAsteroid(x, y, r , flag) {
+            var lvlMult = 1 + 0.1 * level //as level increases speed also increases
+            var roid = {
+                x: x,
+                y: y,
+                xv: Math.random() * ROID_SPD * lvlMult  / FPS * (Math.random() < 0.5 ? 1 : -1),
+                yv: Math.random() * ROID_SPD * lvlMult / FPS * (Math.random() < 0.5 ? 1 : -1),
+                a: Math.random() * Math.PI * 2, // in radians
+                r: r,
+                vert: '4',
+                flag: flag
+               // borderRadius: 50 %
+            };
+
+          /*  // populate the offsets array
+            for (var i = 0; i < roid.vert; i++) {
+                roid.offs.push(Math.random() * ROID_JAG * 2 + 1 - ROID_JAG*/
+            
+
+            return roid;
+        }
+         function keyDown(/** @type {KeyboardEvent} */ ev) {
+  
+            switch(ev.keyCode) {
+                case 49: // make roof invisible
+                    if(doitwellclicked )
+                    {
+                         if(value == 0)
+                        {
+                            score +=25;
+                        }
+                        else{
+                            score -=5;
+                        }
+                    destroyAsteroid( indexdo );
+                    indexdu--;
+                    indexdelegate--;
+                        indexdecide--;
+                        indexdefer--;
+                        indexdelete--;
+                        indexdoodle--;
+                        indexdribble--;
+                    value = value + a ;
+                        count1++;
+                        doitwellclicked = false;
+                    }
+            
+                       
+                    
+                    break;
+                case 97:
+                    if(doitwellclicked )
+                    {
+                         if(value == 0)
+                        {
+                            score +=25;
+                        }
+                        else{
+                            score -=5;
+                        }
+                    destroyAsteroid( indexdo );
+                    indexdu--;
+                    indexdelegate--;
+                        indexdecide--;
+                        indexdefer--;
+                        indexdelete--;
+                        indexdoodle--;
+                        indexdribble--;
+                    value = value + a ;
+                        count1++;
+                        doitwellclicked = false;
+                    }
+            
+                       
+                    
+                    break;
+                    
+                case 50: // make base invisible
+                    if(duclicked)
+                    {
+                        if(value == 5)
+                        {
+                            score += 25;
+                        }
+                        else{
+                            score -=5;
+                        }
+                    destroyAsteroid(  indexdu );
+                   indexdelegate--;
+                        indexdecide--;
+                        indexdefer--;
+                        indexdelete--;
+                        indexdoodle--;
+                        indexdribble--;
+                        count1++;
+                    value = value * b;
+                        duclicked = false;
+                        
+                    }
+                    break;
+                case 98:
+                    if(duclicked)
+                    {
+                        if(value == 5)
+                        {
+                            score += 25;
+                        }
+                        else{
+                            score -=5;
+                        }
+                    destroyAsteroid(  indexdu );
+                   indexdelegate--;
+                        indexdecide--;
+                        indexdefer--;
+                        indexdelete--;
+                        indexdoodle--;
+                        indexdribble--;
+                        count1++;
+                    value = value * b;
+                        duclicked = false;
+                        
+                    }
+                    break;
+                case 51: // make column invisible
+                    if(dgateclicked)
+                    {
+                         if(value == 50)
+                    {
+                        score +=25;
+                    }
+                        else{
+                            score -=5;
+                        }
+                    destroyAsteroid(  indexdelegate );
+                        indexdecide--;
+                        indexdefer--;
+                        indexdelete--;
+                        indexdoodle--;
+                        indexdribble--;
+                    value = value - c;
+                        count2++;
+                        dgateclicked = false;
+                    
+                   
+                    }
+                    break;
+                case 99:
+                    if(dgateclicked)
+                    {
+                         if(value == 50)
+                    {
+                        score +=25;
+                    }
+                        else{
+                            score -=5;
+                        }
+                    destroyAsteroid(  indexdelegate );
+                        indexdecide--;
+                        indexdefer--;
+                        indexdelete--;
+                        indexdoodle--;
+                        indexdribble--;
+                    value = value - c;
+                        count2++;
+                        dgateclicked = false;
+                    
+                   
+                    }
+                    break;
+                     case 52: // make column invisible
+                    if(decideclicked)
+                    {
+                         if(value == 35)
+                    {
+                        score +=25;
+                    }
+                        else{
+                            score -=5;
+                        }
+                    destroyAsteroid(  indexdecide );
+                        indexdefer--;
+                        indexdelete--;
+                        indexdoodle--;
+                        indexdribble--;
+                    value = value + a;
+                        count2++;
+                        decideclicked = false;
+                    
+                   
+                    }
+                    break;
+                case 100:
+                     if(decideclicked)
+                    {
+                         if(value == 35)
+                    {
+                        score +=25;
+                    }
+                        else{
+                            score -=5;
+                        }
+                    destroyAsteroid(  indexdecide );
+                        indexdefer--;
+                        indexdelete--;
+                        indexdoodle--;
+                        indexdribble--;
+                    value = value + a;
+                        count2++;
+                        decideclicked = false;
+                    
+                   
+                    }
+                    break;
+                     case 53: // make column invisible
+                    if(deferclicked)
+                    {
+                         if(value == 40)
+                    {
+                        score +=25;
+                    }
+                        else{
+                            score -=5;
+                        }
+                    destroyAsteroid(  indexdefer );
+                        indexdelete--;
+                        indexdoodle--;
+                        indexdribble--;
+                    value = value * 10;
+                        count3++;
+                        deferclicked = false;
+                    
+                   
+                    }
+                    break;
+                case 101:
+                    if(deferclicked)
+                    {
+                         if(value == 40)
+                    {
+                        score +=25;
+                    }
+                        else{
+                            score -=5;
+                        }
+                    destroyAsteroid(  indexdefer );
+                        indexdelete--;
+                        indexdoodle--;
+                        indexdribble--;
+                    value = value * 10;
+                        count3++;
+                        deferclicked = false;
+                    
+                   
+                    }
+                    break;
+                    
+                     case 54: // make column invisible
+                    if(deleteclicked)
+                    {
+                         if(value == 400)
+                    {
+                        score +=25;
+                    }
+                        else{
+                            score -=5;
+                        }
+                    destroyAsteroid(  indexdelete );
+                        indexdoodle--;
+                        indexdribble--;
+                    value = value - c;
+                        count3++;
+                        deleteclicked = false;
+                    
+                   
+                    }
+                    break;
+                case 102:
+                       if(deleteclicked)
+                    {
+                         if(value == 400)
+                    {
+                        score +=25;
+                    }
+                        else{
+                            score -=5;
+                        }
+                    destroyAsteroid(  indexdelete );
+                        indexdoodle--;
+                        indexdribble--;
+                    value = value - c;
+                        count3++;
+                        deleteclicked = false;
+                    
+                   
+                    }
+                    break;
+                     case 55: // make column invisible
+                    if(doodleclicked)
+                    {
+                         if(value == 385)
+                    {
+                        score +=25;
+                    }
+                        else{
+                            score -=5;
+                        }
+                    destroyAsteroid(  indexdoodle );
+                        indexdribble--;
+                    value = value + a;
+                        count4++;
+                        doodleclicked = false;
+                    
+                   
+                    }
+                    break;
+                case 103:
+                    if(doodleclicked)
+                    {
+                         if(value == 385)
+                    {
+                        score +=25;
+                    }
+                        else{
+                            score -=5;
+                        }
+                    destroyAsteroid(  indexdoodle );
+                        indexdribble--;
+                    value = value + a;
+                        count4++;
+                        doodleclicked = false;
+                    
+                   
+                    }
+                    break;
+                    case 56: // make column invisible
+                    if(dribbleclicked)
+                    {
+                         if(value == 390)
+                    {
+                        score +=25;
+                    }
+                        else{
+                            score -=5;
+                        }
+                    destroyAsteroid(  indexdribble );
+                    value = value * b;
+                        count4++;
+                        dribbleclicked = false;
+                    
+                   
+                    }
+                    break;
+                    case 104:
+                     if(dribbleclicked)
+                    {
+                         if(value == 390)
+                    {
+                        score +=25;
+                    }
+                        else{
+                            score -=5;
+                        }
+                    destroyAsteroid(  indexdribble );
+                    value = value * b;
+                        count4++;
+                        dribbleclicked = false;
+                    
+                   
+                    }
+                    break;
+            }
+        }
+             function newGame()
+        {
+            level = 0;
+            lives = GAME_LIVES ;
+            score = 0;
+              // set up the spaceship object
+        // ship = newShip();
+            //get thge high score
+           var scoreStr = localStorage.getItem(SAVE_KEY_SCORE);
+            if(scoreStr == null)
+            {
+                scoreHigh = 0;
+            }
+            else
+            {
+                scoreHigh = parseInt(scoreStr);//converting string to integer
+            }
+                //firstpage();
+            newLevel();
+
+        }
+        function newLevel()
+        {
+           /* text = " Level " + (level + 1 );
+            textAlpha = 1.0;*/
+            
+            createAsteroidBelt();
+            
+        }
+        function update() {
+        
+
+            // draw space
+            ctx.fillStyle ="black";
+            ctx.fillRect(0, 0, canv.width, canv.height);
+            
+            ctx.fillStyle = "white";
+            ctx.fillRect( canv.width / 4 - 250, canv.height - 100 , 75 ,75);
+             ctx.fillStyle = "red";
+            ctx.fillText("Q1 " + count1 ,canv.width / 4 - 212, canv.height - 62  );
+            ctx.fillStyle = "white";
+            ctx.fillRect( canv.width / 2 - 150 , canv.height - 100 , 75 ,75);
+            ctx.fillStyle = "red";
+            ctx.fillText("Q2 " + count2 , canv.width / 2 - 112 , canv.height - 62 );
+            ctx.fillStyle = "white";
+            ctx.fillRect( ( 3 * canv.width) / 4 - 100, canv.height - 100 , 75 ,75);
+             ctx.fillStyle = "red";
+            ctx.fillText("Q3 " + count3 , ( 3 * canv.width) / 4 - 62, canv.height - 62 );
+            ctx.fillStyle = "white";
+            ctx.fillRect( canv.width - 100, canv.height - 100 , 75 ,75);
+             ctx.fillStyle = "red"; 
+            ctx.fillText("Q4 " + count4 , canv.width - 62, canv.height - 62 );
+            
+            
+            // draw the asteroids
+            var a, r, x, y, offs, vert;
+            for (var i = 0; i < roids.length; i++) {
+            
+                ctx.strokeStyle = '#FFFFFF';
+                ctx.lineWidth = SHIP_SIZE / 20;
+
+                // get the asteroid properties
+                a = roids[i].a;
+                r = roids[i].r;
+                x = roids[i].x;
+                y = roids[i].y;
+               // offs = roids[i].offs;
+                vert = roids[i].vert;
+                
+                // draw the path
+                ctx.beginPath();
+               /* ctx.moveTo(
+                    x + r * Math.cos(a),
+                    y + r * Math.sin(a)
+                );*/
+                // draw the polygon
+                for (var j = 1; j < vert; j++) 
+                {
+                    ctx.arc(x,y,r,0,Math.PI * 2);
+
+                }
+                
+                
+                 if (roids[i].flag  == 1 /*& indexroof == 0) */)
+              {
+                  ctx.fillStyle = '#fff833';
+                  ctx.fill();
+                    ctx.fillStyle = "black";
+                    ctx.fillText("DO IT WELL  1" , roids[i].x , roids[i].y);
+                  
+                  
+                }
+                else
+                if( roids[i].flag == 2 /*&& indexcol == 1) ||( i == 0 && indexcol == 0))*/)
+               {
+                   ctx.fillStyle = '#fff833';
+                  ctx.fill();
+                    ctx.fillStyle = "black";
+                    ctx.fillText("DOUBLE UP  2" , roids[i].x , roids[i].y);
+                }
+                else
+                    if( roids[i].flag == 3/* && indexbase == 2) && (i == 0 && indexbase == 0))*/)
+                {
+                    ctx.fillStyle = "orange";
+                  ctx.fill();
+                    ctx.fillStyle = "purple";
+                    ctx.fillText("DELEGATE  3" , roids[i].x , roids[i].y);
+                }
+                else
+                     if( roids[i].flag == 4/* && indexbase == 2) && (i == 0 && indexbase == 0))*/)
+                {
+                    ctx.fillStyle = "orange";
+                  ctx.fill();
+                    ctx.fillStyle = "purple";
+                    ctx.fillText("DECIDE  4" , roids[i].x , roids[i].y);
+                }
+                else
+                 if( roids[i].flag == 5/* && indexbase == 2) && (i == 0 && indexbase == 0))*/)
+                {
+                    ctx.fillStyle = "red";
+                  ctx.fill();
+                    ctx.fillStyle = "white";
+                    ctx.fillText("DEFER  5" , roids[i].x , roids[i].y);
+                }
+                else if( roids[i].flag == 6/* && indexbase == 2) && (i == 0 && indexbase == 0))*/)
+                {
+                    ctx.fillStyle = "red";
+                  ctx.fill();
+                    ctx.fillStyle = "white";
+                    ctx.fillText("DELETE  6" , roids[i].x , roids[i].y);
+                }
+                else
+                     if( roids[i].flag == 7/* && indexbase == 2) && (i == 0 && indexbase == 0))*/)
+                {
+                    ctx.fillStyle = "blue";
+                  ctx.fill();
+                    ctx.fillStyle = "red";
+                    ctx.fillText("DOODLE  7" , roids[i].x , roids[i].y);
+                }
+                else if( roids[i].flag == 8/* && indexbase == 2) && (i == 0 && indexbase == 0))*/)
+                {
+                    ctx.fillStyle = "blue";
+                  ctx.fill();
+                    ctx.fillStyle = "red";
+                    ctx.fillText("DRIBBLE  8" , roids[i].x , roids[i].y);
+                }
+                ctx.stroke();
+            }
+           
+             // move the asteroids
+            for (var i = 0; i < roids.length; i++) {
+                roids[i].x += roids[i].xv;
+                roids[i].y += roids[i].yv;
+
+                // handle asteroid edge of screen
+                if (roids[i].x < 0 - roids[i].r) {
+                    roids[i].x = canv.width + roids[i].r;
+                } else if (roids[i].x > canv.width + roids[i].r) {
+                    roids[i].x = 0 - roids[i].r
+                }
+                if (roids[i].y < 0 - roids[i].r) {
+                    roids[i].y = canv.height + roids[i].r;
+                } else if (roids[i].y > canv.height + roids[i].r) {
+                    roids[i].y = 0 - roids[i].r
+                }
+            }
+             ctx.font = "30px Arial";
+               //draw the score
+            
+                ctx.textAlign = "right" ;
+                ctx.textBaseline = "middle" ;
+                ctx.fillStyle = "white";
+                ctx.font = TEXT_SIZE + " px dejavu sans momo ";
+                ctx.fillText( score , canv.width -SHIP_SIZE / 2 , SHIP_SIZE);//0.75 because if we put 0.5 it will come over the space ship
+            
+            //draw the high score 
+            
+              ctx.textAlign = "center" ;
+                ctx.textBaseline = "middle" ;
+                ctx.fillStyle = "white";
+                ctx.font = (TEXT_SIZE * 100) + " px dejavu sans momo ";
+                ctx.fillText( "BEST " + scoreHigh , canv.width / 2 , SHIP_SIZE);
+        }
+        
+        
+        }
+    </script>
+</body>
+
+</html>
+        
